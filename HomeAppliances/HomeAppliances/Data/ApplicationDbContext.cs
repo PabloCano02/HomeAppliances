@@ -11,6 +11,7 @@ namespace HomeAppliances.Data
         }
 
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<HomeApplianceType> HomeApplianceTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

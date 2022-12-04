@@ -11,6 +11,9 @@ namespace HomeAppliances.Helpers
             CreateMap<Brand, BrandDTO>().ReverseMap();
             CreateMap<BrandCreationDTO, Brand>();
 
+            CreateMap<DocumentType, DocumentTypeDTO>().ReverseMap();
+            CreateMap<DocumentTypeCreationDTO, DocumentType>();
+
             CreateMap<HomeApplianceType, HomeApplianceTypeDTO>().ReverseMap();
             CreateMap<HomeApplianceTypeCreationDTO, HomeApplianceType>();
         }
