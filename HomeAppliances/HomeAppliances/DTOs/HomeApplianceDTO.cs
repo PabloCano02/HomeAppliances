@@ -20,6 +20,9 @@ namespace HomeAppliances.DTOs
         [Display(Name = "Marca")]
         public Brand Brand { get; set; }
 
+        [JsonIgnore]
+        public ICollection<HomeAppliancePhoto> HomeAppliancePhotos { get; set; }
+
         [Display(Name = "Modelo")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]

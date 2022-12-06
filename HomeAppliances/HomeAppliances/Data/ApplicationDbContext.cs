@@ -12,6 +12,7 @@ namespace HomeAppliances.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<HomeAppliance> HomeAppliances { get; set; }
+        public DbSet<HomeAppliancePhoto> HomeAppliancePhotos { get; set; }
         public DbSet<HomeApplianceType> HomeApplianceTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +27,11 @@ namespace HomeAppliances.Data
                 .HasOne(bc => bc.Brand)
                 .WithMany(b => b.HomeAppliances)
                 .HasForeignKey(bc => bc.BrandId);
+
+            modelBuilder.Entity<HomeAppliancePhoto>()
+                .HasOne(bc => bc.HomeAppliance)
+                .WithMany(b => b.HomeAppliancePhotos)
+                .HasForeignKey(bc => bc.HomeApplianceId);
         }
     }
 }

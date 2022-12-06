@@ -1,4 +1,5 @@
 ﻿using HomeAppliances.Data;
+using HomeAppliances.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -20,8 +21,21 @@ namespace HomeAppliances
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddTransient<IFileStorage, LocalFileStorage>();
+
+            services.AddHttpContextAccessor();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(options =>
+            {
+                var frontEND = Configuration.GetValue<string>("frontend");
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(frontEND).AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+                });
+            });
 
             services.AddSwaggerGen(c =>
             {
