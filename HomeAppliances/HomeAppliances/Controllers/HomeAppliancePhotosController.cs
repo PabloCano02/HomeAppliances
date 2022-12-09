@@ -3,6 +3,8 @@ using HomeAppliances.Data;
 using HomeAppliances.DTOs;
 using HomeAppliances.Entities;
 using HomeAppliances.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,6 +51,7 @@ namespace HomeAppliances.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
         public async Task<ActionResult<HomeAppliancePhoto>> PostHomeAppliancePhoto([FromForm] HomeAppliancePhotoCreationDTO homeAppliancePhotoCreationDTO)
         {
             var file = _mapper.Map<HomeAppliancePhoto>(homeAppliancePhotoCreationDTO);
@@ -64,6 +67,7 @@ namespace HomeAppliances.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
         public async Task<ActionResult> DeleteHomeAppliancePhoto(int id)
         {
             HomeAppliancePhoto homeAppliancePhoto = await _context.HomeAppliancePhotos.FirstOrDefaultAsync(hap => hap.Id == id);

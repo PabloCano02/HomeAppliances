@@ -1,4 +1,5 @@
 ﻿using HomeAppliances.Entities;
+using HomeAppliances.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -12,6 +13,8 @@ namespace HomeAppliances.DTOs
 
         public int BrandId { get; set; }
 
+        public string UserId { get; set; }
+
         [JsonIgnore]
         [Display(Name = "Tipo de electrodoméstico")]
         public HomeApplianceType HomeApplianceType { get; set; }
@@ -19,6 +22,10 @@ namespace HomeAppliances.DTOs
         [JsonIgnore]
         [Display(Name = "Marca")]
         public Brand Brand { get; set; }
+
+        [JsonIgnore]
+        [Display(Name = "Usuario")]
+        public IdentityModel IdentityModel { get; set; }
 
         [JsonIgnore]
         public ICollection<HomeAppliancePhoto> HomeAppliancePhotos { get; set; }

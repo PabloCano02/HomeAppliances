@@ -2,6 +2,8 @@
 using HomeAppliances.Data;
 using HomeAppliances.DTOs;
 using HomeAppliances.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +47,7 @@ namespace HomeAppliances.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
         public async Task<ActionResult> PostHomeAppliance([FromBody] HomeApplianceCreationDTO homeApplianceCreationDTO)
         {
             var homeAppliance = _mapper.Map<HomeAppliance>(homeApplianceCreationDTO);
@@ -55,6 +58,7 @@ namespace HomeAppliances.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
         public async Task<ActionResult<HomeAppliance>> PutHomeAppliance(int id, HomeAppliance homeAppliance)
         {
             if (id != homeAppliance.Id)
@@ -75,6 +79,7 @@ namespace HomeAppliances.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
         public async Task<IActionResult> DeleteHomeAppliance(int id)
         {
             HomeAppliance homeAppliance = await _context.HomeAppliances.FirstOrDefaultAsync(ha => ha.Id == id);

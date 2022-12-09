@@ -2,6 +2,8 @@
 using HomeAppliances.Data;
 using HomeAppliances.DTOs;
 using HomeAppliances.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,7 @@ namespace HomeAppliances.Controllers
 {
     [ApiController]
     [Route("api/documenttypes")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "Admin")]
     public class DocumentTypesController : ControllerBase
     {
         private readonly ILogger<DocumentTypesController> _logger;
